@@ -22,16 +22,13 @@ def get_codes(folder):
 
     return codes
 
-
-def main(folder):
+def save_weather_codes(folder, output_file):
     codes = get_codes(folder)
-    with open('weather-codes.json', 'w') as f:
+    with open(output_file, 'w') as f:
         json.dump(codes, f)
-    print(codes)
 
 
 if __name__ == '__main__':
-    folder = os.path.join('data_download', 'weather')
-    FORMAT = '%(asctime)s (`%(filename)s:%(lineno)d): (%(levelname)s) %(message)s'
-    logging.basicConfig(format=FORMAT, level=logging.DEBUG)
-    main(folder)
+    import configs
+    configs.configure_logging()
+    save_weather_codes(configs.weather_data_dl_dir, configs.weather_data_codes)
