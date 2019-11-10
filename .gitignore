@@ -4,3 +4,5 @@ data_download/
 __pycache__/
 
 **.csv
+!holidays.csv
+.idea/
