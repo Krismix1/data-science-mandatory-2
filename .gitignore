@@ -1,1 +1,6 @@
 output*/
+data_download/
+
+__pycache__/
+
+**.csv

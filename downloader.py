@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 SOURCE_JSON = 'data-index.json'
 BASE_URL = 'https://s3-eu-west-1.amazonaws.com/cycling.data.tfl.gov.uk/{}'
-OUTPUT_DIR = os.path.join('output', 'cycling-data')
+OUTPUT_DIR = os.path.join('data_download', 'cycling-data')
 
 def make_output_dirs(paths):
     for path in paths: os.makedirs(path, exist_ok=True)
@@ -24,7 +24,7 @@ def load_data(path):
 def download_file(url, output_path):
     with requests.get(url, stream=True) as r:
         r.raise_for_status()
-        if os.path.isfile(output_path): logger.warning('File %s exists', output_path)
+        if os.path.isfile(output_path): logger.warning('File %s already exists', output_path)
         with open(output_path, 'wb') as f:
             for chunk in r.iter_content(chunk_size=8192):
                 if chunk: # filter out keep-alive new chunks
