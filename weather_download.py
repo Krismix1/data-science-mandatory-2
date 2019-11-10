@@ -38,7 +38,7 @@ def init_weather_download(api_key, dl_dir, city):
         dl_queue.put((start_date, start_date + interval))
         start_date += interval + day
 
-    make_output_dirs(dl_dir)
+    make_output_dirs([dl_dir])
 
     num_dl_threads = 6
     for i in range(num_dl_threads):
