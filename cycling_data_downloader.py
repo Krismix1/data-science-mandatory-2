@@ -31,22 +31,22 @@ def download_files(dl_queue, output_dir):
     while not dl_queue.empty():
         try:
             left = dl_queue.qsize()
-            res = dl_queue.get(block=False)
-            url = BASE_URL.format(res['Key'])
+            filename = dl_queue.get(block=False)
+            url = BASE_URL.format(filename)
             logger.info('Remaining %d files, downloading %s', left, url)
-            download_file(url, os.path.join(output_dir, res['Key']))
+            download_file(url, os.path.join(output_dir, filename.replace(' ', '')))
             dl_queue.task_done()
         except Empty:
             break
 
 def download_cycle_data(index_file, output_dir):
-    entry = load_data(index_file)
-    folders = [os.path.join(output_dir, e['Key']) for e in entry if e['Size'] == '0'] # the size is stored as strings
+    entries = load_data(index_file)
+    folders = [os.path.join(output_dir, e['Key']) for e in entries if e['Size'] == '0'] # the size is stored as strings
     make_output_dirs(folders)
     dl_queue = Queue()
-    for e in entry:
-        if e['Size'] != '0': # the size is stored as strings
-            dl_queue.put(e.replace(' ', '')) # remove spaces from file names
+    for entry in entries:
+        if entry['Size'] != '0': # the size is stored as strings
+            dl_queue.put(entry['Key']) # remove spaces from file names
 
     num_dl_threads = 8
     for i in range(num_dl_threads):

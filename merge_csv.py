@@ -4,7 +4,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 def get_csv_files(data_dir):
-    for item in os.listdir(data_dir):
+    for item in sorted(os.listdir(data_dir)):
         path = os.path.join(data_dir, item)
         if item.endswith('csv') and os.path.isfile(path):
             yield path

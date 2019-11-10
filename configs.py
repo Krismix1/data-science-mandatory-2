@@ -1,15 +1,15 @@
 import os
 
-restructured_data_dir = 'restructured-data'
-merged_cycle_data_file = 'cycle-merged.csv'
+restructured_data_dir = os.path.join('output', 'restructured-data')
+merged_cycle_data_file = os.path.join('output', 'cycle-data-merged.csv')
 merged_cycle_data_path = os.path.join(restructured_data_dir, merged_cycle_data_file)
 
-cycling_data_index = 'data-index.json'
+cycling_data_index = 'cycle-data-index.json'
 cycling_data_dl_dir = os.path.join('data_download', 'cycling-data')
 
 weather_data_dl_dir = os.path.join('data_download', 'weather')
-weather_data_codes = os.path.join('weather-codes.json')
-weather_data_csv = os.path.join('weather-data.csv')
+weather_data_codes = os.path.join('output', 'weather-codes.json')
+weather_data_csv = os.path.join('output', 'weather-data.csv')
 
 weather_data_city = 'London'
 
