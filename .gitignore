@@ -5,6 +5,7 @@ __pycache__/
 
 **.csv
 !holidays.csv
-!shares-1.csv
+!shares-ungrouped.csv
+!shares-grouped.csv
 .idea/
 .ipynb_checkpoints
