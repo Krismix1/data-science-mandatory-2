@@ -54,4 +54,4 @@ def clean_data(data_dir, output_dir):
 
 if __name__ == '__main__':
     configs.configure_logging()
-    clean_data(configs.cycling_data_dl_dir, configs.restructured_data_dir)
+    clean_data(configs.usage_stats, configs.restructured_data_dir)

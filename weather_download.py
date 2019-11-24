@@ -27,7 +27,7 @@ def download_weather(dl_queue, key, dl_dir, city):
             break
 
 def init_weather_download(api_key, dl_dir, city):
-    start_date = date(year=2015, month=1, day=1)
+    start_date = date(year=2012, month=1, day=1)
     end_date = date(year=2019, month=11, day=1)
     interval = timedelta(days=35)
     day = timedelta(days=1)
