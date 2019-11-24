@@ -5,6 +5,7 @@ merged_cycle_data_file = os.path.join('output', 'cycle-data-merged.csv')
 
 cycling_data_index = 'cycle-data-index.json'
 cycling_data_dl_dir = os.path.join('data_download', 'cycling-data')
+usage_stats = os.path.join(cycling_data_dl_dir, 'usage-stats')
 
 weather_data_dl_dir = os.path.join('data_download', 'weather')
 weather_data_codes = os.path.join('output', 'weather-codes.json')
