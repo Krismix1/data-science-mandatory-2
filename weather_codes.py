@@ -23,6 +23,7 @@ def get_codes(folder):
     return codes
 
 def save_weather_codes(folder, output_file):
+    os.makedirs(folder, exist_ok=True)
     codes = get_codes(folder)
     with open(output_file, 'w') as f:
         json.dump(codes, f)

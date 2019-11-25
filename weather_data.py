@@ -6,6 +6,7 @@ import datetime
 logger = logging.getLogger(__name__)
 
 def write_weather_data(folder, output_file, eol='\n'):
+    os.makedirs(folder, exist_ok=True)
     items = os.listdir(folder)
     files = [i for i in items if os.path.isfile(os.path.join(folder, i))]
     files = sorted(files)

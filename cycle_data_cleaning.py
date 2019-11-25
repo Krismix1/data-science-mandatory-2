@@ -2,6 +2,7 @@ import os
 import configs
 import logging
 import pandas as pd
+from merge_csv import get_files
 
 
 logger = logging.getLogger(__name__)
@@ -32,18 +33,15 @@ def clean_df(df):
 
 def clean_data(data_dir, output_dir):
     os.makedirs(output_dir, exist_ok=True)
+    files = list(get_files(data_dir, 'csv'))
 
-    folder = os.path.join(data_dir, 'usage-stats')
-    entries = os.listdir(folder)
-    entries = [e for e in entries if os.path.isfile(os.path.join(folder, e)) and e.endswith('csv')]
-
-    df = pd.read_csv(os.path.join(folder, entries[0]), index_col='Rental Id') # treat the Rental Id as the index
+    df = pd.read_csv(files[0], index_col='Rental Id', encoding='ISO-8859-1') # treat the Rental Id as the index
     df = clean_df(df)
     cols = set(df.columns)
 
-    for file in entries[1:]:
-
-        df_ = pd.read_csv(os.path.join(folder, file), index_col='Rental Id') # treat the Rental Id as the index
+    for file in files[1:]:
+        logger.debug(f'Cleaning {file}')
+        df_ = pd.read_csv(file, index_col='Rental Id', encoding='ISO-8859-1') # treat the Rental Id as the index
         df_ = clean_df(df_)
 
         if not cols == set(df_.columns):
@@ -52,8 +50,8 @@ def clean_data(data_dir, output_dir):
                 file, set(df_.columns) - cols
             )
             continue
-        df_.to_csv(os.path.join(output_dir, file))
+        df_.to_csv(os.path.join(output_dir, os.path.basename(file)), encoding='utf-8')
 
 if __name__ == '__main__':
     configs.configure_logging()
-    clean_data(configs.cycling_data_dl_dir, configs.restructured_data_dir)
+    clean_data(configs.usage_stats, configs.restructured_data_dir)

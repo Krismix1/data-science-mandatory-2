@@ -5,6 +5,9 @@ import requests
 import threading
 from queue import Queue, Empty
 
+from merge_csv import get_files
+
+
 logger = logging.getLogger(__name__)
 
 
@@ -54,7 +57,20 @@ def download_cycle_data(index_file, output_dir):
         t.start()
     dl_queue.join()
 
+def unzip_2012_2024_cycling_data(folder, output_folder):
+    import re
+    import zipfile
+
+    make_output_dirs([folder, output_folder])
+    files = get_files(folder, 'zip')
+    for file in files:
+        if not re.search(r'-201[2-4].zip$', file): continue
+        logger.info(f'Unzipping {file} to {output_folder}')
+        with zipfile.ZipFile(file, 'r') as zip_ref:
+            zip_ref.extractall(output_folder)
+
 if __name__ == '__main__':
     import configs
     configs.configure_logging()
     download_cycle_data(configs.cycling_data_index, configs.cycling_data_dl_dir)
+    unzip_2012_2024_cycling_data(configs.usage_stats, configs.usage_stats)
